@@ -137,7 +137,7 @@ function Admin() {
     }
   };
 
-  // FIXED: Proper file upload function
+  // File upload handler
   const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     
@@ -212,11 +212,9 @@ function Admin() {
     }
   };
 
-  // FIXED: Download function - uses the /download endpoint (latest CV)
   const handleDownloadCV = async (cv) => {
     try {
       showNotification('Downloading CV...', 'info');
-      // Use the download endpoint that gets the latest CV
       window.open(`${API_BASE_URL}/cv/download`, '_blank');
     } catch (error) {
       showNotification('Error downloading CV', 'error');
@@ -458,7 +456,7 @@ function Admin() {
                 </button>
 
                 {showNotifications && (
-                  <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                  <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50">
                     <div className="p-4 border-b border-gray-200 dark:border-gray-700">
                       <h3 className="font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
                     </div>
@@ -546,45 +544,65 @@ function Admin() {
           <div className="p-6">
             {activeTab === 'cvs' ? (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Upload CV Card */}
+                {/* Upload CV Card - FIXED CLICKABLE BUTTON */}
                 <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upload New CV</h3>
                   
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-8 text-center hover:border-[#ff8c42] transition-colors group">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-[#ff8c42]/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Upload className="w-8 h-8 text-[#ff8c42]" />
+                  {/* Hidden file input */}
+                  <input
+                    type="file"
+                    id="cv-upload-input"
+                    accept=".pdf,application/pdf"
+                    onChange={handleFileUpload}
+                    disabled={uploading}
+                    className="hidden"
+                  />
+                  
+                  {/* Clickable upload area */}
+                  <label
+                    htmlFor="cv-upload-input"
+                    className={`flex flex-col items-center justify-center w-full min-h-[220px] border-2 border-dashed rounded-xl cursor-pointer transition-all duration-300 ${
+                      uploading 
+                        ? 'border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800 cursor-not-allowed opacity-60'
+                        : 'border-gray-300 hover:border-[#ff8c42] hover:bg-[#ff8c42]/5 dark:border-gray-600 dark:hover:border-[#ff8c42] group'
+                    }`}
+                  >
+                    <div className="flex flex-col items-center justify-center py-8 px-4 text-center">
+                      <div className={`w-16 h-16 mb-4 rounded-full flex items-center justify-center transition-transform duration-300 ${
+                        uploading 
+                          ? 'bg-gray-200 dark:bg-gray-700' 
+                          : 'bg-[#ff8c42]/10 group-hover:scale-110'
+                      }`}>
+                        <Upload className={`w-8 h-8 ${uploading ? 'text-gray-400' : 'text-[#ff8c42]'}`} />
+                      </div>
+                      <p className="mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        {uploading ? 'Uploading...' : 'Click to upload your CV'}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        PDF files only (Max 5MB)
+                      </p>
+                      {!uploading && (
+                        <p className="mt-2 text-xs text-[#ff8c42] opacity-0 group-hover:opacity-100 transition-opacity">
+                          Click or drag and drop
+                        </p>
+                      )}
                     </div>
-                    <label className="cursor-pointer">
-                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
-                        Click to upload or drag and drop
-                      </span>
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        PDF only (max 5MB)
-                      </span>
-                      <input
-                        type="file"
-                        accept=".pdf,application/pdf"
-                        onChange={handleFileUpload}
-                        disabled={uploading}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
-
+                  </label>
+                  
                   {uploading && (
                     <div className="mt-4 text-center">
                       <div className="inline-flex items-center gap-2 text-[#ff8c42]">
                         <RefreshCw className="w-5 h-5 animate-spin" />
-                        <span>Uploading...</span>
+                        <span>Uploading your CV...</span>
                       </div>
                     </div>
                   )}
-
+                  
                   <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                     <div className="flex items-start gap-3">
                       <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                       <p className="text-xs text-blue-600 dark:text-blue-400">
-                        Upload your CV in PDF format. The file will be automatically saved and made available for download.
+                        Upload your CV in PDF format. The file will be automatically saved and users can download it from the homepage.
                       </p>
                     </div>
                   </div>
