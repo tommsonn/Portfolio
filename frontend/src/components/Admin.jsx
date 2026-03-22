@@ -851,4 +851,29 @@ function Admin() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button 
-            onClick={() => window
+            onClick={() => window.location.href = '/'}
+            className="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#ff8c42] transition-colors text-left group"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-[#ff8c42]/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Home className="w-5 h-5 text-[#ff8c42]" />
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 dark:text-white">View Site</h4>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Return to portfolio homepage</p>
+              </div>
+            </div>
+          </button>
+        </div>
+
+        {/* Session Indicator */}
+        <div className="fixed bottom-4 left-4 flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span className="text-xs text-gray-600 dark:text-gray-400">Session active • Activity resets timer</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Admin;
