@@ -11,13 +11,16 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Use your Render backend URL
+  const API_URL = 'https://your-backend-url.onrender.com/api'; // <-- REPLACE WITH YOUR ACTUAL URL
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/contact/submit', {
+      const response = await fetch(`${API_URL}/contact/submit`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
