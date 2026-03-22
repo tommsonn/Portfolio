@@ -7,23 +7,26 @@ import {
   Download, 
   Mail,
   Linkedin,
-  Send, // Telegram icon (paper plane)
-  Briefcase // Add Briefcase import
+  Send,
+  Briefcase
 } from 'lucide-react';
 
 function Hero() {
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // Use your Render backend URL
-  const API_URL = 'https://your-backend-url.onrender.com/api'; // <-- REPLACE WITH YOUR ACTUAL URL
+  // REPLACE with your actual Render backend URL
+  const API_URL = 'https://portfolio-bkvz.onrender.com/api'; // <-- USE YOUR ACTUAL URL
 
   const handleDownloadCV = async () => {
     try {
       setIsDownloading(true);
+      console.log('Downloading from:', `${API_URL}/cv/download`);
+      
       const response = await fetch(`${API_URL}/cv/download`);
 
       if (!response.ok) {
-        throw new Error('Failed to download CV');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to download CV');
       }
 
       const blob = await response.blob();
@@ -37,7 +40,7 @@ function Hero() {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading CV:', error);
-      alert('Failed to download CV. Please try again.');
+      alert(error.message || 'Failed to download CV. Please try again.');
     } finally {
       setIsDownloading(false);
     }
@@ -50,7 +53,6 @@ function Hero() {
     }
   };
 
-  // Social links configuration
   const socialLinks = [
     { 
       Icon: Github, 
