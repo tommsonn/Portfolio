@@ -212,10 +212,21 @@ function Admin() {
     }
   };
 
-  const handleDownloadCV = async (cv) => {
+  // View CV - Opens PDF in new tab
+  const handleViewCV = (cv) => {
+    try {
+      window.open(`${API_BASE_URL}/cv/download/${cv._id}`, '_blank');
+    } catch (error) {
+      showNotification('Error opening CV', 'error');
+      console.error(error);
+    }
+  };
+
+  // Download CV
+  const handleDownloadCV = (cv) => {
     try {
       showNotification('Downloading CV...', 'info');
-      window.open(`${API_BASE_URL}/cv/download`, '_blank');
+      window.open(`${API_BASE_URL}/cv/download/${cv._id}`, '_blank');
     } catch (error) {
       showNotification('Error downloading CV', 'error');
       console.error(error);
@@ -544,7 +555,7 @@ function Admin() {
           <div className="p-6">
             {activeTab === 'cvs' ? (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Upload CV Card - FIXED CLICKABLE BUTTON */}
+                {/* Upload CV Card */}
                 <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Upload New CV</h3>
                   
@@ -608,7 +619,7 @@ function Admin() {
                   </div>
                 </div>
 
-                {/* CV List */}
+                {/* CV List - UPDATED WITH VIEW BUTTON */}
                 <div className="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Uploaded CVs</h3>
@@ -664,6 +675,16 @@ function Admin() {
                             </div>
                             
                             <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                              {/* View Button - Opens PDF in new tab */}
+                              <button
+                                onClick={() => handleViewCV(cv)}
+                                className="p-2 text-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg transition-colors"
+                                title="View CV"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </button>
+                              
+                              {/* Download Button */}
                               <button
                                 onClick={() => handleDownloadCV(cv)}
                                 className="p-2 text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
@@ -671,6 +692,8 @@ function Admin() {
                               >
                                 <DownloadIcon className="w-4 h-4" />
                               </button>
+                              
+                              {/* Delete Button */}
                               <button
                                 onClick={() => handleDeleteCV(cv._id)}
                                 disabled={isDeleting === cv._id}
@@ -828,29 +851,4 @@ function Admin() {
         {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button 
-            onClick={() => window.location.href = '/'}
-            className="p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-[#ff8c42] transition-colors text-left group"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#ff8c42]/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Home className="w-5 h-5 text-[#ff8c42]" />
-              </div>
-              <div>
-                <h4 className="font-medium text-gray-900 dark:text-white">View Site</h4>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Return to portfolio homepage</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        {/* Session Indicator */}
-        <div className="fixed bottom-4 left-4 flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-xs text-gray-600 dark:text-gray-400">Session active • Activity resets timer</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default Admin;
+            onClick={() => window
