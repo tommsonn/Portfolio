@@ -14,9 +14,7 @@ import {
 function Hero() {
   const [isDownloading, setIsDownloading] = useState(false);
 
-  // REPLACE with your actual Render backend URL
-  const API_URL = 'https://portfolio-bkvz.onrender.com/api'; // <-- USE YOUR ACTUAL URL
-
+  const API_URL = 'https://portfolio-bkvz.onrender.com/api'; 
   const handleDownloadCV = async () => {
     try {
       setIsDownloading(true);
