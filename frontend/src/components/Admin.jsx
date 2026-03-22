@@ -26,6 +26,7 @@ function Admin() {
   const [filterStatus, setFilterStatus] = useState('all');
   const [showNotifications, setShowNotifications] = useState(false);
 
+  // Use environment variable for API URL or fallback to localhost for development
   const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
   const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD || 'admin123';
   const SESSION_TIMEOUT = 30 * 60 * 1000;
@@ -136,6 +137,7 @@ function Admin() {
     }
   };
 
+  // FIXED: Proper file upload function
   const handleFileUpload = async (e) => {
     const file = e.target.files?.[0];
     
@@ -154,10 +156,8 @@ function Admin() {
       return;
     }
 
-    const sanitizedFilename = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
-    
     const formData = new FormData();
-    formData.append('cv', file, sanitizedFilename);
+    formData.append('cv', file);
 
     try {
       setUploading(true);
@@ -167,17 +167,19 @@ function Admin() {
       });
 
       if (response.ok) {
-        showNotification('CV uploaded successfully', 'success');
-        fetchCVs();
+        const result = await response.json();
+        showNotification('CV uploaded successfully!', 'success');
+        fetchCVs(); // Refresh the list
         resetSessionTimer();
+        // Reset the file input
         if (e.target) e.target.value = '';
       } else {
         const error = await response.json();
-        showNotification(error.message || 'Upload failed', 'error');
+        showNotification(error.error || 'Upload failed', 'error');
       }
     } catch (error) {
-      showNotification('Error uploading file', 'error');
-      console.error(error);
+      console.error('Upload error:', error);
+      showNotification('Error uploading file. Please try again.', 'error');
     } finally {
       setUploading(false);
     }
@@ -200,13 +202,25 @@ function Admin() {
         resetSessionTimer();
       } else {
         const error = await response.json();
-        showNotification(error.message || 'Failed to delete CV', 'error');
+        showNotification(error.error || 'Failed to delete CV', 'error');
       }
     } catch (error) {
       showNotification('Error deleting CV', 'error');
       console.error(error);
     } finally {
       setIsDeleting(null);
+    }
+  };
+
+  // FIXED: Download function - uses the /download endpoint (latest CV)
+  const handleDownloadCV = async (cv) => {
+    try {
+      showNotification('Downloading CV...', 'info');
+      // Use the download endpoint that gets the latest CV
+      window.open(`${API_BASE_URL}/cv/download`, '_blank');
+    } catch (error) {
+      showNotification('Error downloading CV', 'error');
+      console.error(error);
     }
   };
 
@@ -275,15 +289,6 @@ function Admin() {
     }
   };
 
-  const handleDownloadCV = async (cv) => {
-    try {
-      showNotification('Downloading CV...', 'info');
-      window.open(`${API_BASE_URL}/cv/download/${cv._id}`, '_blank');
-    } catch (error) {
-      showNotification('Error downloading CV', 'error');
-    }
-  };
-
   const showNotification = (msg, type) => {
     const id = Date.now();
     setNotifications(prev => [...prev, { id, message: msg, type }]);
@@ -315,6 +320,7 @@ function Admin() {
     return matchesSearch;
   });
 
+  // Handle user activity to reset session timer
   useEffect(() => {
     if (isAuthenticated) {
       const events = ['mousedown', 'keydown', 'scroll', 'mousemove'];
@@ -332,6 +338,7 @@ function Admin() {
     }
   }, [isAuthenticated]);
 
+  // Login Page
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-4">
@@ -393,6 +400,7 @@ function Admin() {
     );
   }
 
+  // Dashboard Page
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900" onClick={resetSessionTimer}>
       {/* Notifications */}
@@ -448,6 +456,27 @@ function Admin() {
                     <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                   )}
                 </button>
+
+                {showNotifications && (
+                  <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-gray-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                      <h3 className="font-semibold text-gray-900 dark:text-white">Recent Activity</h3>
+                    </div>
+                    <div className="max-h-96 overflow-y-auto">
+                      {contacts.slice(0, 5).map(contact => (
+                        <div key={contact._id} className="p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 border-b border-gray-100 dark:border-gray-700">
+                          <p className="text-sm text-gray-600 dark:text-gray-400">
+                            <span className="font-medium text-gray-900 dark:text-white">{contact.name}</span> sent a message
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">{formatDate(contact.createdAt)}</p>
+                        </div>
+                      ))}
+                      {contacts.length === 0 && (
+                        <div className="p-4 text-center text-gray-500">No recent activity</div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* User Menu */}
@@ -555,7 +584,7 @@ function Admin() {
                     <div className="flex items-start gap-3">
                       <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
                       <p className="text-xs text-blue-600 dark:text-blue-400">
-                        Upload your CV in PDF format. The file will be automatically optimized and made available for download.
+                        Upload your CV in PDF format. The file will be automatically saved and made available for download.
                       </p>
                     </div>
                   </div>
@@ -585,7 +614,7 @@ function Admin() {
                         <File className="w-8 h-8 text-gray-400" />
                       </div>
                       <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">No CVs uploaded yet</p>
-                      <p className="text-xs text-gray-400">Upload your first CV to get started</p>
+                      <p className="text-xs text-gray-400">Upload your first CV using the form on the left</p>
                     </div>
                   ) : (
                     <div className="space-y-3 max-h-96 overflow-y-auto pr-2 custom-scrollbar">
@@ -778,7 +807,7 @@ function Admin() {
           </div>
         </div>
 
-        {/* Quick Actions - Clean version */}
+        {/* Quick Actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <button 
             onClick={() => window.location.href = '/'}
@@ -790,6 +819,7 @@ function Admin() {
               </div>
               <div>
                 <h4 className="font-medium text-gray-900 dark:text-white">View Site</h4>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Return to portfolio homepage</p>
               </div>
             </div>
           </button>
@@ -798,7 +828,7 @@ function Admin() {
         {/* Session Indicator */}
         <div className="fixed bottom-4 left-4 flex items-center gap-2 px-3 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-          <span className="text-xs text-gray-600 dark:text-gray-400">Session active</span>
+          <span className="text-xs text-gray-600 dark:text-gray-400">Session active • Activity resets timer</span>
         </div>
       </div>
     </div>
