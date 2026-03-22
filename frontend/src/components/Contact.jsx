@@ -11,8 +11,7 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // REPLACE with your actual Render backend URL
-  const API_URL = 'https://portfolio-bkvz.onrender.com/api'; // <-- USE YOUR ACTUAL URL
+  const API_URL = 'https://portfolio-bkvz.onrender.com/api';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
