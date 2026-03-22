@@ -23,8 +23,8 @@ const allowedOrigins = [
   'http://localhost:5173',
   'http://localhost:3000',
   'http://localhost:5000',
-  'https://portfolio-frontend-n8ib.onrender.com', // Your frontend URL
-  'https://portfolio-backend.onrender.com', // Your backend URL
+  'https://portfolio-frontend-n8ib.onrender.com', 
+  'https://portfolio-bkvz.onrender.com/', 
   process.env.CORS_ORIGIN
 ].filter(Boolean);
 
