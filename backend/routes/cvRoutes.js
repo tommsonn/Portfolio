@@ -21,7 +21,6 @@ const storage = multer.diskStorage({
     cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
-    // Create unique filename with timestamp
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9.-]/g, '_');
     cb(null, uniqueSuffix + '-' + sanitizedName);
@@ -41,9 +40,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-  limits: { 
-    fileSize: 5 * 1024 * 1024 // 5MB limit
-  }
+  limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 // ==================== CV ENDPOINTS ====================
@@ -54,12 +51,10 @@ const upload = multer({
  */
 router.post('/upload', upload.single('cv'), async (req, res) => {
   try {
-    // Check if file was uploaded
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
 
-    // Create CV record in database
     const cvRecord = new CV({
       filename: req.file.filename,
       originalName: req.file.originalname,
@@ -113,7 +108,6 @@ router.get('/download', async (req, res) => {
       return res.status(404).json({ error: 'File not found' });
     }
 
-    // Download the file with original name
     res.download(filePath, latestCV.originalName);
   } catch (error) {
     console.error('Download error:', error);
@@ -129,8 +123,8 @@ router.get('/download/:id', async (req, res) => {
   try {
     const { id } = req.params;
     
-    // Validate ID format
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+    // Validate MongoDB ObjectId
+    if (!id || !id.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({ error: 'Invalid CV ID format' });
     }
 
@@ -146,7 +140,7 @@ router.get('/download/:id', async (req, res) => {
       return res.status(404).json({ error: 'File not found' });
     }
 
-    // Send file for viewing in browser (opens in new tab)
+    // Send file for viewing in browser
     res.sendFile(filePath);
   } catch (error) {
     console.error('View error:', error);
@@ -162,23 +156,20 @@ router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     
-    // Validate ID format
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+    if (!id || !id.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({ error: 'Invalid CV ID format' });
     }
 
-    // Find and delete the CV record
     const cv = await CV.findByIdAndDelete(id);
 
     if (!cv) {
       return res.status(404).json({ error: 'CV not found' });
     }
 
-    // Delete the actual file from storage
+    // Delete the actual file
     const filePath = join(__dirname, '../public', cv.filePath);
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
-      console.log(`Deleted file: ${filePath}`);
     }
 
     res.json({ 
