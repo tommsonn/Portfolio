@@ -14,10 +14,13 @@ import {
 function Hero() {
   const [isDownloading, setIsDownloading] = useState(false);
 
+  // Use your Render backend URL
+  const API_URL = 'https://your-backend-url.onrender.com/api'; // <-- REPLACE WITH YOUR ACTUAL URL
+
   const handleDownloadCV = async () => {
     try {
       setIsDownloading(true);
-      const response = await fetch('http://localhost:5000/api/cv/download');
+      const response = await fetch(`${API_URL}/cv/download`);
 
       if (!response.ok) {
         throw new Error('Failed to download CV');
@@ -56,7 +59,6 @@ function Hero() {
       gradient: 'from-gray-700 to-gray-900',
       hoverColor: 'hover:from-gray-600 hover:to-gray-800'
     },
-    
     { 
       Icon: Instagram, 
       href: 'https://instagram.com/tommsonn', 
@@ -91,7 +93,7 @@ function Hero() {
       <div className="max-w-[1280px] mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full relative z-10">
         {/* Left Column */}
         <div className="space-y-8">
-          {/* Social Links - Now with 6 icons */}
+          {/* Social Links */}
           <div className="flex flex-wrap gap-3">
             {socialLinks.map(({ Icon, href, label, gradient, hoverColor }, index) => (
               <a
@@ -106,7 +108,6 @@ function Hero() {
                 <div className={`relative w-[50px] h-[50px] bg-gradient-to-r ${gradient} ${hoverColor} rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1`}>
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                {/* Tooltip */}
                 <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs bg-gray-900 text-white px-2 py-1 rounded whitespace-nowrap">
                   {label}
                 </span>
@@ -176,9 +177,6 @@ function Hero() {
 
         {/* Right Column - Profile Image */}
         <div className="relative flex justify-center items-center">
-          {/* Floating Elements */}
-       
-
           {/* Experience Badge */}
           <div className="absolute bottom-[20%] left-[5%] z-10 animate-float-delayed">
             <div className="bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-200 dark:border-gray-700">
