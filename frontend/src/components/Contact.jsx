@@ -11,8 +11,8 @@ function Contact() {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Use your Render backend URL
-  const API_URL = 'https://your-backend-url.onrender.com/api'; // <-- REPLACE WITH YOUR ACTUAL URL
+  // REPLACE with your actual Render backend URL
+  const API_URL = 'https://portfolio-bkvz.onrender.com/api'; // <-- USE YOUR ACTUAL URL
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,6 +20,8 @@ function Contact() {
     setMessage('');
 
     try {
+      console.log('Submitting to:', `${API_URL}/contact/submit`);
+      
       const response = await fetch(`${API_URL}/contact/submit`, {
         method: 'POST',
         headers: {
@@ -28,11 +30,13 @@ function Contact() {
         body: JSON.stringify(formData)
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setMessage('Thank you for your message! I will get back to you soon.');
         setFormData({ name: '', email: '', subject: '', message: '' });
       } else {
-        setMessage('Failed to send message. Please try again.');
+        setMessage(data.message || 'Failed to send message. Please try again.');
       }
     } catch (error) {
       console.error('Error:', error);
