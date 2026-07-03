@@ -23,10 +23,10 @@ function Projects() {
     {
       title: 'MInT - Plan Monitoring and Evaluation',
       description: 'A comprehensive monitoring and evaluation platform for the Ministry of Innovation and Technology (MInT). Streamlines plan tracking, progress monitoring, and reporting for technology initiatives in Ethiopia.',
-      image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: '/mint-image.png',
       tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express', 'Render'],
       link: 'https://planmonitoringandevaluationmint.onrender.com',
-      github: 'https://github.com/tommsonn/portfolio',
+      github: 'https://github.com/tommsonn/MinT-Plan-Monitoring-And-Evaluation-system',
       featured: false
     },
     {
