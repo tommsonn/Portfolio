@@ -48,7 +48,7 @@ function About() {
                 <div className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-transparent transition-all duration-300">
                   <div className="text-center">
                     <h4 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                      5+
+                      4+
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       Projects Completed
@@ -76,7 +76,7 @@ function About() {
                 <div className="relative p-6 bg-white dark:bg-gray-800 rounded-2xl border border-gray-100 dark:border-gray-700 hover:border-transparent transition-all duration-300">
                   <div className="text-center">
                     <h4 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                      3+
+                      2+
                     </h4>
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       Years Experience
