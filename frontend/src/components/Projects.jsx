@@ -9,7 +9,8 @@ function Projects() {
       tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'MongoDB', 'Render'],
       link: 'https://portfolio-frontend-n8ib.onrender.com',
       github: 'https://github.com/tommsonn/portfolio',
-      featured: true
+      featured: true,
+      liveDemo: true
     },
     {
       title: 'TomShop - E-Commerce Platform',
@@ -18,7 +19,8 @@ function Projects() {
       tags: ['React', 'Node.js', 'MongoDB', 'Tailwind', 'TypeScript', 'Telebirr API'],
       link: 'https://e-commerce-frontend-4yol.onrender.com',
       github: 'https://github.com/tommsonn/E-commerce',
-      featured: true
+      featured: true,
+      liveDemo: true
     },
     {
       title: 'MInT - Plan Monitoring and Evaluation',
@@ -27,7 +29,8 @@ function Projects() {
       tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express', 'Render'],
       link: 'https://planmonitoringandevaluationmint.onrender.com',
       github: 'https://github.com/tommsonn/MinT-Plan-Monitoring-And-Evaluation-system',
-      featured: false
+      featured: false,
+      liveDemo: true
     },
     {
       title: 'Blog Platform',
@@ -35,7 +38,8 @@ function Projects() {
       image: 'https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['React', 'Next.js', 'CMS'],
       link: '#',
-      github: '#'
+      github: '#',
+      liveDemo: false
     }
   ];
 
@@ -106,14 +110,21 @@ function Projects() {
                   </div>
                 </div>
 
-                {/* Featured Badge */}
-                {project.featured && (
-                  <div className="absolute top-4 left-4 z-10">
+                {/* Badges - Top Left */}
+                <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
+                  {/* Featured Badge */}
+                  {project.featured && (
                     <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                      Featured
+                    </span>
+                  )}
+                  {/* Live Demo Badge */}
+                  {project.liveDemo && project.link !== '#' && (
+                    <span className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
                       Live Demo
                     </span>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
 
               <div className="p-6">
