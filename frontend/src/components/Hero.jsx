@@ -134,19 +134,19 @@ function Hero() {
           <div className="flex gap-8 pt-4">
             <div className="text-center">
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                10+
+                4+
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Projects</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                3+
+                2+
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Years Exp</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                8+
+                3+
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Clients</div>
             </div>
