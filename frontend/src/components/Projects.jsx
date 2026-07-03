@@ -110,21 +110,14 @@ function Projects() {
                   </div>
                 </div>
 
-                {/* Badges - Top Left */}
-                <div className="absolute top-4 left-4 z-10 flex flex-col gap-2">
-                  {/* Featured Badge */}
-                  {project.featured && (
-                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                      Featured
-                    </span>
-                  )}
-                  {/* Live Demo Badge */}
-                  {project.liveDemo && project.link !== '#' && (
+                {/* Live Demo Badge - Top Left */}
+                {project.liveDemo && project.link !== '#' && (
+                  <div className="absolute top-4 left-4 z-10">
                     <span className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
                       Live Demo
                     </span>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
 
               <div className="p-6">
