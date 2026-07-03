@@ -35,7 +35,7 @@ function Projects() {
     {
       title: 'Library Management System',
       description: 'A full-stack web application built with Spring Boot and React.js for efficient library operations. Features include book management, user roles, borrowing/returning books, and admin dashboards.',
-      image: 'https://images.pexels.com/photos/290595/pexels-photo-290595.jpeg?auto=compress&cs=tinysrgb&w=600',
+      image: 'https://www.shutterstock.com/image-vector/cartoonstyle-vector-illustration-group-kids-600w-2250690681.jpg',
       tags: ['Spring Boot', 'React', 'PostgreSQL', 'Java', 'REST API', 'JWT'],
       link: '#',
       github: 'https://github.com/tommsonn/Springboot-webservice',
