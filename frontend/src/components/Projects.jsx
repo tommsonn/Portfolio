@@ -3,6 +3,15 @@ import { ExternalLink, Github } from 'lucide-react';
 function Projects() {
   const projects = [
     {
+      title: 'Portfolio Website',
+      description: 'My personal portfolio website built with React, Vite, and Tailwind CSS. Features dark mode, admin dashboard for CV and message management, contact form, and responsive design.',
+      image: '/portfolio-image.png',
+      tags: ['React', 'Vite', 'Tailwind CSS', 'Node.js', 'MongoDB', 'Render'],
+      link: 'https://portfolio-frontend-n8ib.onrender.com',
+      github: 'https://github.com/tommsonn/portfolio',
+      featured: true
+    },
+    {
       title: 'TomShop - E-Commerce Platform',
       description: 'Full-featured e-commerce platform with product management, user authentication, multiple payment methods (Telebirr, Chapa, Bank Transfer), admin dashboard, and real-time notifications.',
       image: 'https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600',
@@ -12,34 +21,10 @@ function Projects() {
       featured: true
     },
     {
-      title: 'Social Media App',
-      description: 'Real-time social networking platform with messaging, posts, and user profiles.',
-      image: 'https://images.pexels.com/photos/267350/pexels-photo-267350.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tags: ['React', 'Firebase', 'CSS'],
-      link: '#',
-      github: '#'
-    },
-    {
-      title: 'Portfolio Website',
-      description: 'Minimalist portfolio template for creatives and developers to showcase their work.',
-      image: 'https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tags: ['React', 'Vite', 'Tailwind'],
-      link: '#',
-      github: '#'
-    },
-    {
       title: 'Task Management',
       description: 'Collaborative task manager with drag-and-drop, team collaboration, and time tracking.',
       image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['React', 'TypeScript', 'API'],
-      link: '#',
-      github: '#'
-    },
-    {
-      title: 'Weather Dashboard',
-      description: 'Real-time weather application with forecasts, maps, and location-based alerts.',
-      image: 'https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tags: ['React', 'API', 'Charts'],
       link: '#',
       github: '#'
     },
@@ -53,7 +38,12 @@ function Projects() {
     }
   ];
 
-  const sortedProjects = [...projects].sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+  // Sort projects - featured ones come first
+  const sortedProjects = [...projects].sort((a, b) => {
+    if (a.featured && !b.featured) return -1;
+    if (!a.featured && b.featured) return 1;
+    return 0;
+  });
 
   return (
     <section className="py-24 bg-gradient-to-b from-white to-gray-50 dark:from-gray-800 dark:to-gray-900" id="projects">
@@ -66,7 +56,7 @@ function Projects() {
         {/* Featured Badge */}
         <div className="text-center mb-8">
           <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
-            ⭐ Featured: TomShop - Live E-Commerce Platform
+            ⭐ Featured Projects
           </span>
         </div>
 
@@ -79,11 +69,14 @@ function Projects() {
               {/* Gradient Border on Hover */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
               
-              <div className="relative h-[250px] overflow-hidden">
+              <div className="relative h-[250px] overflow-hidden bg-gray-100 dark:bg-gray-700">
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  onError={(e) => {
+                    e.target.src = 'https://via.placeholder.com/600x400?text=No+Image';
+                  }}
                 />
                 
                 {/* Overlay with Actions */}
