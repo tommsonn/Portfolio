@@ -7,7 +7,10 @@ function Skills() {
     { name: 'TypeScript', level: 80, icon: '💙', color: 'from-blue-400 to-indigo-400' },
     { name: 'Git', level: 90, icon: '📦', color: 'from-orange-400 to-red-400' },
     { name: 'UI/UX Design', level: 85, icon: '✨', color: 'from-purple-400 to-pink-400' },
-    { name: 'Java', level: 75, icon: '☕', color: 'from-red-400 to-orange-400' }
+    { name: 'Java', level: 75, icon: '☕', color: 'from-red-400 to-orange-400' },
+    // NEW SKILLS
+    { name: 'Spring Boot', level: 70, icon: '🌱', color: 'from-green-500 to-green-700' },
+    { name: 'Docker', level: 65, icon: '🐳', color: 'from-blue-400 to-sky-500' }
   ];
 
   return (
@@ -35,7 +38,7 @@ function Skills() {
                 <div className="relative">
                   <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                     <div
-                      className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative`}
+                      className={`h-full bg-gradient-to-r ${skill.color} rounded-full relative transition-all duration-1000 ease-out`}
                       style={{ width: `${skill.level}%` }}
                     >
                       <div className="absolute inset-0 bg-white/20 animate-shimmer"></div>
