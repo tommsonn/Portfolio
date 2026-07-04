@@ -43,6 +43,16 @@ function Projects() {
       liveDemo: false
     },
     {
+      title: 'Governance Policy Management System',
+      description: 'A robust event-driven microservices system for managing governance policies. Features include policy lifecycle management, status transitions, and immutable audit logging using Spring Boot, Apache Kafka, and PostgreSQL.',
+      image: 'https://images.pexels.com/photos/4050293/pexels-photo-4050293.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['Spring Boot', 'Kafka', 'PostgreSQL', 'Docker', 'Microservices', 'JWT'],
+      link: '#',
+      github: 'https://github.com/tommsonn/governance-policy-system',
+      featured: false,
+      liveDemo: false
+    },
+    {
       title: 'Blog Platform',
       description: 'Modern blogging platform with markdown support, comments, and user authentication.',
       image: 'https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&cs=tinysrgb&w=600',
