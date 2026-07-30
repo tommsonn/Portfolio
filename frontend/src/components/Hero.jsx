@@ -183,7 +183,7 @@ function Hero() {
               <div className="flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-blue-600" />
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">3+ Years</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">2+ Years</p>
                   <p className="text-xs text-gray-500">Experience</p>
                 </div>
               </div>
