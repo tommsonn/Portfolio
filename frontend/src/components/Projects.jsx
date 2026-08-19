@@ -80,12 +80,12 @@ function Projects() {
           {sortedProjects.map((project, index) => (
             <div 
               key={index} 
-              className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+              className="group relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl flex flex-col h-full"
             >
               {/* Gradient Border on Hover */}
               <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
               
-              <div className="relative h-[250px] overflow-hidden bg-gray-100 dark:bg-gray-700">
+              <div className="relative h-[250px] overflow-hidden bg-gray-100 dark:bg-gray-700 flex-shrink-0">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -131,18 +131,23 @@ function Projects() {
                 )}
               </div>
 
-              <div className="p-6">
+              {/* Content - Full visibility */}
+              <div className="p-6 flex flex-col flex-grow">
                 <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white flex items-center gap-2">
                   {project.title}
                   {project.featured && (
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                   )}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
+                
+                {/* Full description - no truncation */}
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                   {project.description}
                 </p>
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.slice(0, 4).map((tag, i) => (
+                
+                {/* All tags visible */}
+                <div className="flex flex-wrap gap-2 mt-auto">
+                  {project.tags.map((tag, i) => (
                     <span 
                       key={i} 
                       className="px-2 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-xs font-medium"
@@ -150,11 +155,6 @@ function Projects() {
                       {tag}
                     </span>
                   ))}
-                  {project.tags.length > 4 && (
-                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400 rounded-lg text-xs font-medium">
-                      +{project.tags.length - 4}
-                    </span>
-                  )}
                 </div>
               </div>
             </div>
