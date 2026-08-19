@@ -24,7 +24,7 @@ function Projects() {
     },
     {
       title: 'MInT - Plan Monitoring and Evaluation',
-      description: 'A comprehensive monitoring and evaluation platform for the Ministry of Innovation and Technology (MInT). Streamlines plan tracking, progress monitoring, and reporting for technology initiatives in Ethiopia.',
+      description: 'A comprehensive monitoring and evaluation platform for the Ethiopian Ministry of Innovation and Technology (MInT). Streamlines plan tracking, progress monitoring, and reporting for technology initiatives in Ethiopia.',
       image: '/mint-image.png',
       tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express', 'Render'],
       link: 'https://planmonitoringandevaluationmint.onrender.com',
@@ -44,9 +44,9 @@ function Projects() {
     },
     {
       title: 'Governance Policy Management System',
-      description: 'A robust event-driven microservices system for managing governance policies. Features include policy lifecycle management, status transitions, and immutable audit logging using Spring Boot, Apache Kafka, and PostgreSQL.',
+      description: 'A robust, production-grade microservices system for governance policy management. Features an API Gateway with JWT authentication, service discovery (Eureka), rate limiting (Redis), circuit breakers (Resilience4j), and internal gRPC communication between services. The system manages policy lifecycles and provides immutable audit logging through an event-driven architecture with Apache Kafka.',
       image: 'https://images.squarespace-cdn.com/content/v1/63a398ddcd5ee80243873df9/1672679960396-S5TP08TT08QIXZW5T7TW/EDUCATE.+ADVOCATE.+SUPPORT.+%281500+%C3%97+600+px%29+%2825%29.png',
-      tags: ['Spring Boot', 'Kafka', 'PostgreSQL', 'Docker', 'Microservices', 'JWT'],
+      tags: ['Spring Boot', 'API Gateway', 'Kafka', 'PostgreSQL', 'Docker', 'gRPC', 'Eureka', 'Redis', 'Resilience4j', 'JWT'],
       link: '#',
       github: 'https://github.com/tommsonn/governance-policy-system',
       featured: false,
