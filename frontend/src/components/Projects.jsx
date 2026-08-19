@@ -51,15 +51,6 @@ function Projects() {
       github: 'https://github.com/tommsonn/governance-policy-system',
       featured: false,
       liveDemo: false
-    },
-    {
-      title: 'Blog Platform',
-      description: 'Modern blogging platform with markdown support, comments, and user authentication.',
-      image: 'https://images.pexels.com/photos/270637/pexels-photo-270637.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tags: ['React', 'Next.js', 'CMS'],
-      link: '#',
-      github: '#',
-      liveDemo: false
     }
   ];
 
