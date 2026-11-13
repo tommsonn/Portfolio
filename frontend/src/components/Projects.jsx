@@ -33,6 +33,16 @@ function Projects() {
       liveDemo: true
     },
     {
+      title: 'Senako Dental System',
+      description: 'A full-stack dental clinic management system for managing patients, appointments, treatments, and billing. Features include patient records, appointment scheduling, treatment history, and an admin dashboard for clinic staff.',
+      image: 'https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express', 'JWT'],
+      link: '#',
+      github: 'https://github.com/tommsonn/senako-dental-system',
+      featured: false,
+      liveDemo: false
+    },
+    {
       title: 'Library Management System',
       description: 'A full-stack web application built with Spring Boot and React.js for efficient library operations. Features include book management, user roles, borrowing/returning books, and admin dashboards.',
       image: 'https://www.shutterstock.com/image-vector/cartoonstyle-vector-illustration-group-kids-600w-2250690681.jpg',
@@ -44,7 +54,7 @@ function Projects() {
     },
     {
       title: 'Governance Policy Management System',
-      description: 'A robust, production-grade microservices system for governance policy management. Features an API Gateway with JWT authentication, service discovery (Eureka), rate limiting (Redis), circuit breakers (Resilience4j), and internal gRPC communication between services. The system manages policy lifecycles and provides immutable audit logging through an event-driven architecture with Apache Kafka.',
+      description: 'Engineered a robust, production-grade microservices system for governance policy management. Features an API Gateway with JWT authentication, service discovery (Eureka), rate limiting (Redis), circuit breakers (Resilience4j), internal gRPC communication, and event-driven architecture with Apache Kafka. Handles policy lifecycle management (DRAFT → PENDING_APPROVAL → APPROVED/REJECTED) with immutable audit logging.',
       image: 'https://images.squarespace-cdn.com/content/v1/63a398ddcd5ee80243873df9/1672679960396-S5TP08TT08QIXZW5T7TW/EDUCATE.+ADVOCATE.+SUPPORT.+%281500+%C3%97+600+px%29+%2825%29.png',
       tags: ['Spring Boot', 'API Gateway', 'Kafka', 'PostgreSQL', 'Docker', 'gRPC', 'Eureka', 'Redis', 'Resilience4j', 'JWT'],
       link: '#',
