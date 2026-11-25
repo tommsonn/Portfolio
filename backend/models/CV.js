@@ -17,14 +17,19 @@ const cvSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
-  uploadedAt: {
-    type: Date,
-    default: Date.now
-  },
   filePath: {
     type: String,
     required: true
   }
+}, {
+  timestamps: {
+    createdAt: 'uploadedAt',
+    updatedAt: 'updatedAt'
+  }
 });
 
-export default mongoose.model('CV', cvSchema);
+// Create index for faster queries
+cvSchema.index({ uploadedAt: -1 });
+
+const CV = mongoose.model('CV', cvSchema);
+export default CV;
