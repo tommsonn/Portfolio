@@ -40,7 +40,7 @@ function Projects() {
       link: 'https://senako-dental-clinic.vercel.app/',
       github: 'https://github.com/tommsonn/senako-dental-system',
       featured: false,
-      liveDemo: false
+      liveDemo: true
     },
     {
       title: 'Library Management System',
