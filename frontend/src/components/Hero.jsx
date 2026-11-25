@@ -7,20 +7,24 @@ import {
   Download, 
   Mail,
   Linkedin,
-  Send, // Telegram icon (paper plane)
-  Briefcase // Add Briefcase import
+  Send,
+  Briefcase
 } from 'lucide-react';
 
 function Hero() {
   const [isDownloading, setIsDownloading] = useState(false);
 
+  const API_URL = 'https://portfolio-bkvz.onrender.com/api'; 
   const handleDownloadCV = async () => {
     try {
       setIsDownloading(true);
-      const response = await fetch('http://localhost:5000/api/cv/download');
+      console.log('Downloading from:', `${API_URL}/cv/download`);
+      
+      const response = await fetch(`${API_URL}/cv/download`);
 
       if (!response.ok) {
-        throw new Error('Failed to download CV');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to download CV');
       }
 
       const blob = await response.blob();
@@ -34,7 +38,7 @@ function Hero() {
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Error downloading CV:', error);
-      alert('Failed to download CV. Please try again.');
+      alert(error.message || 'Failed to download CV. Please try again.');
     } finally {
       setIsDownloading(false);
     }
@@ -47,7 +51,6 @@ function Hero() {
     }
   };
 
-  // Social links configuration
   const socialLinks = [
     { 
       Icon: Github, 
@@ -56,7 +59,6 @@ function Hero() {
       gradient: 'from-gray-700 to-gray-900',
       hoverColor: 'hover:from-gray-600 hover:to-gray-800'
     },
-    
     { 
       Icon: Instagram, 
       href: 'https://instagram.com/tommsonn', 
@@ -91,7 +93,7 @@ function Hero() {
       <div className="max-w-[1280px] mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full relative z-10">
         {/* Left Column */}
         <div className="space-y-8">
-          {/* Social Links - Now with 6 icons */}
+          {/* Social Links */}
           <div className="flex flex-wrap gap-3">
             {socialLinks.map(({ Icon, href, label, gradient, hoverColor }, index) => (
               <a
@@ -106,7 +108,6 @@ function Hero() {
                 <div className={`relative w-[50px] h-[50px] bg-gradient-to-r ${gradient} ${hoverColor} rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:-translate-y-1`}>
                   <Icon className="w-5 h-5 text-white" />
                 </div>
-                {/* Tooltip */}
                 <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-xs bg-gray-900 text-white px-2 py-1 rounded whitespace-nowrap">
                   {label}
                 </span>
@@ -133,19 +134,19 @@ function Hero() {
           <div className="flex gap-8 pt-4">
             <div className="text-center">
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                10+
+                4+
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Projects</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                3+
+                2+
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Years Exp</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                8+
+                3+
               </div>
               <div className="text-sm text-gray-500 dark:text-gray-400">Clients</div>
             </div>
@@ -176,16 +177,13 @@ function Hero() {
 
         {/* Right Column - Profile Image */}
         <div className="relative flex justify-center items-center">
-          {/* Floating Elements */}
-       
-
           {/* Experience Badge */}
           <div className="absolute bottom-[20%] left-[5%] z-10 animate-float-delayed">
             <div className="bg-white dark:bg-gray-800 rounded-2xl px-4 py-3 shadow-xl border border-gray-200 dark:border-gray-700">
               <div className="flex items-center gap-2">
                 <Briefcase className="w-5 h-5 text-blue-600" />
                 <div>
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">3+ Years</p>
+                  <p className="text-sm font-semibold text-gray-900 dark:text-white">2+ Years</p>
                   <p className="text-xs text-gray-500">Experience</p>
                 </div>
               </div>
