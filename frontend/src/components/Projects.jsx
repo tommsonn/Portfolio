@@ -37,7 +37,7 @@ function Projects() {
       description: 'A full-stack dental clinic management system for managing patients, appointments, treatments, and billing. Features include patient records, appointment scheduling, treatment history, and an admin dashboard for clinic staff.',
       image: 'https://images.pexels.com/photos/3845810/pexels-photo-3845810.jpeg?auto=compress&cs=tinysrgb&w=600',
       tags: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express', 'JWT'],
-      link: '#',
+      link: 'https://senako-dental-clinic.vercel.app/',
       github: 'https://github.com/tommsonn/senako-dental-system',
       featured: false,
       liveDemo: false
